@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.egg-info/
+
+# Modelos treinados e binários
+modelos/
+*.joblib
+*.bin
+*.safetensors
+
+# Datasets pesados
+data/opp115/
+
+# Sistema
+.DS_Store
+Thumbs.db
+.vscode/
+resultados/*.tmp

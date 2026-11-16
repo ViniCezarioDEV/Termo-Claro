@@ -1,0 +1,573 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Termo Claro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: documento de proposta em coluna única de leitura, com sumário lateral fixo em telas largas; citações de lei em fonte mono como "carimbos". */
+:root {
+  --paper: #f6f8f9;
+  --sheet: #ffffff;
+  --ink: #17262c;
+  --muted: #56666d;
+  --rule: #d6dfe3;
+  --accent: #1d5c6e;
+  --accent-soft: #e3eef1;
+  --ok: #2f7d4f;
+  --warn: #b8860b;
+  --bad: #b3362c;
+  --code-bg: #eef3f5;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", Arial, sans-serif;
+  --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0f1719;
+    --sheet: #152024;
+    --ink: #e2eaec;
+    --muted: #9aabb1;
+    --rule: #2a3a40;
+    --accent: #6fb6c9;
+    --accent-soft: #1b3038;
+    --ok: #5cbf83;
+    --warn: #e0b341;
+    --bad: #ec7468;
+    --code-bg: #1a282d;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0f1719;
+  --sheet: #152024;
+  --ink: #e2eaec;
+  --muted: #9aabb1;
+  --rule: #2a3a40;
+  --accent: #6fb6c9;
+  --accent-soft: #1b3038;
+  --ok: #5cbf83;
+  --warn: #e0b341;
+  --bad: #ec7468;
+  --code-bg: #1a282d;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  padding-inline: 20px;
+  padding-block: 0 64px;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 56px;
+}
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  nav.toc { display: none; }
+}
+
+/* Sumário */
+nav.toc {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 32px);
+  align-self: start;
+  padding-top: 40px;
+  font-family: var(--f-display);
+  font-size: 0.9rem;
+}
+nav.toc p {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+nav.toc a {
+  color: var(--muted);
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: 2ch 1fr;
+  gap: 8px;
+  padding: 2px 0;
+}
+nav.toc a span { font-family: var(--f-mono); font-size: 0.8rem; color: var(--accent); }
+nav.toc a:hover { color: var(--ink); }
+
+/* Capa */
+header.cover {
+  padding-block: 48px 32px;
+  border-bottom: 2px solid var(--ink);
+  display: grid;
+  gap: 14px;
+}
+.eyebrow {
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin: 0;
+}
+h1 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.subtitle {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 34ch;
+  text-wrap: balance;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 10px 0 0;
+  font-family: var(--f-display);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.meta b { color: var(--ink); font-weight: 600; }
+.note {
+  font-size: 0.92rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Seções */
+main { min-width: 0; }
+section {
+  padding-block: 36px 8px;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  gap: 16px;
+}
+section:last-of-type { border-bottom: 0; }
+h2 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 1.65rem;
+  line-height: 1.15;
+  margin: 0;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  text-wrap: balance;
+}
+h2 .n { font-family: var(--f-mono); font-size: 0.95rem; color: var(--accent); font-weight: 500; }
+h3 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 12px 0 0;
+}
+p, li { max-width: 68ch; }
+p { margin: 0; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+strong { font-weight: 600; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.lead { font-size: 1.12rem; }
+
+/* Citação de artigo de lei */
+.art {
+  font-family: var(--f-mono);
+  font-size: 0.82em;
+  background: var(--code-bg);
+  color: var(--ink);
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* Argumentos de ciber */
+ol.args { counter-reset: arg; list-style: none; padding: 0; gap: 14px; }
+ol.args li {
+  counter-increment: arg;
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 12px;
+}
+ol.args li::before {
+  content: counter(arg);
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--accent);
+  line-height: 1.3;
+}
+.callout {
+  background: var(--accent-soft);
+  padding: 16px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Tabelas */
+.table-wrap { overflow-x: auto; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+th {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border-bottom: 1.5px solid var(--ink);
+}
+td:first-child { font-weight: 600; }
+td.wk { font-family: var(--f-mono); font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.taxo td:first-child { min-width: 11rem; }
+
+/* Alertas */
+.lvl { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 0.85rem; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+.dot.ok { background: var(--ok); }
+.dot.warn { background: var(--warn); }
+.dot.bad { background: var(--bad); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.95rem; }
+
+/* Diagrama */
+.pipeline {
+  display: grid;
+  gap: 0;
+  max-width: 560px;
+}
+.step {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.step .k { font-family: var(--f-mono); color: var(--accent); font-weight: 500; }
+.step b { font-family: var(--f-display); font-weight: 600; display: block; }
+.step small { color: var(--muted); font-size: 0.9rem; }
+.arrow { height: 22px; margin-left: 2.1rem; border-left: 1.5px solid var(--muted); position: relative; }
+.arrow::after {
+  content: ""; position: absolute; left: -5px; bottom: 0;
+  border-left: 4.5px solid transparent; border-right: 4.5px solid transparent; border-top: 6px solid var(--muted);
+}
+.step.input { background: transparent; border-style: dashed; }
+
+.refs li { font-size: 0.95rem; }
+footer { padding-top: 32px; color: var(--muted); font-size: 0.85rem; font-family: var(--f-display); }
+
+@media (max-width: 480px) {
+  body { font-size: 1rem; }
+  h2 { font-size: 1.4rem; }
+}
+</style>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Sumário">
+    <p>Sumário</p>
+    <ol>
+      <li><a href="#resumo"><span>1</span>Resumo</a></li>
+      <li><a href="#problema"><span>2</span>Problema</a></li>
+      <li><a href="#ciber"><span>3</span>Cibersegurança</a></li>
+      <li><a href="#objetivos"><span>4</span>Objetivos</a></li>
+      <li><a href="#dados"><span>5</span>Dados</a></li>
+      <li><a href="#solucao"><span>6</span>Solução</a></li>
+      <li><a href="#metricas"><span>7</span>Métricas</a></li>
+      <li><a href="#equipe"><span>8</span>Equipe</a></li>
+      <li><a href="#cronograma"><span>9</span>Cronograma</a></li>
+      <li><a href="#entregaveis"><span>10</span>Entregáveis</a></li>
+      <li><a href="#stack"><span>11</span>Stack</a></li>
+      <li><a href="#riscos"><span>12</span>Riscos</a></li>
+      <li><a href="#limitacoes"><span>13</span>Limitações</a></li>
+      <li><a href="#referencias"><span>·</span>Referências</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="cover">
+      <p class="eyebrow">Proposta de projeto · Cibersegurança + IA</p>
+      <h1>Termo Claro</h1>
+      <p class="subtitle">Tradutor de políticas de privacidade e termos de uso à luz da LGPD, com IA local e open source</p>
+      <div class="meta">
+        <span><b>Equipe:</b> [Nome 1], [Nome 2], [Nome 3], [Nome 4]</span>
+        <span><b>Data:</b> [preencher]</span>
+      </div>
+      <p class="note">"Termo Claro" é um nome provisório e pode ser trocado pela equipe.</p>
+    </header>
+
+    <section id="resumo">
+      <h2><span class="n">1</span>Resumo</h2>
+      <p class="lead">O Termo Claro é uma ferramenta local que lê a política de privacidade ou os termos de uso de um aplicativo e devolve, em linguagem simples, o que acontece com os dados do usuário: o que é coletado, com quem é compartilhado, se há uso de localização ou de dados sensíveis, por quanto tempo os dados ficam guardados e quais direitos o titular tem.</p>
+      <p>Cada ponto recebe um alerta de risco e é ligado ao artigo correspondente da Lei Geral de Proteção de Dados (Lei nº 13.709/2018).</p>
+      <div class="legend" aria-label="Níveis de alerta">
+        <span class="lvl"><i class="dot ok"></i>Adequado</span>
+        <span class="lvl"><i class="dot warn"></i>Vago ou incompleto</span>
+        <span class="lvl"><i class="dot bad"></i>Risco ao titular</span>
+      </div>
+      <p>O núcleo técnico é um classificador de trechos de texto por categoria de prática de dados, treinado no dataset público OPP-115 e avaliado num corpus novo de políticas de apps brasileiros anotado pela equipe. Um modelo de linguagem executado localmente (via Ollama) transforma o resultado em um resumo para leigos. Tudo roda em um notebook comum, sem GPU e sem nenhum serviço pago.</p>
+    </section>
+
+    <section id="problema">
+      <h2><span class="n">2</span>Problema e motivação</h2>
+      <p><strong>Ninguém lê os termos que aceita.</strong> Em um experimento com 543 participantes, Obar e Oeldorf-Hirsch (2016) observaram que 74% pularam a política de privacidade de um serviço fictício. McDonald e Cranor (2008) estimaram que ler todas as políticas que uma pessoa aceita levaria cerca de 201 horas por ano, o equivalente a 76 dias úteis.</p>
+      <p><strong>A lei exige clareza, mas a prática não entrega.</strong> A LGPD garante ao titular o princípio da transparência <span class="art">art. 6º, VI</span> e o direito a informações "de forma clara, adequada e ostensiva" sobre o tratamento dos seus dados <span class="art">art. 9º</span>. Na prática, as políticas são longas, jurídicas e genéricas.</p>
+      <p><strong>As ferramentas existentes não atendem o Brasil.</strong> Trabalhos como PoliGraph (arXiv:2210.06746), PoliAnalyzer (arXiv:2507.14214) e AutoTOS (github.com/MathTauAthogen/autoTOS) analisam políticas automaticamente, mas são voltados ao inglês e ao GDPR europeu. Não encontramos ferramenta aberta focada em português e na LGPD.</p>
+    </section>
+
+    <section id="ciber">
+      <h2><span class="n">3</span>Relação com cibersegurança</h2>
+      <p class="callout">Este projeto trata de <strong>prevenção</strong>: reduzir a exposição do usuário antes que um incidente aconteça.</p>
+      <ol class="args">
+        <li><p><strong>Dado coletado é dado que pode vazar.</strong> Cada categoria de dado entregue a um app, e a cada terceiro com quem ele compartilha, aumenta a superfície de ataque sobre o usuário. Uma política que permite compartilhar dados com "parceiros" sem nomeá-los multiplica os pontos de falha.</p></li>
+        <li><p><strong>Dados vazados alimentam golpes.</strong> Nome, CPF, telefone, endereço e histórico de compras são a matéria-prima da engenharia social no Brasil: a falsa central do banco, o falso boleto, o golpe do Pix. Quanto mais dados circulam, mais convincente o golpe.</p></li>
+        <li><p><strong>Minimização de dados é controle de segurança.</strong> O princípio da necessidade <span class="art">art. 6º, III</span> é o mesmo princípio de menor privilégio e de redução de superfície de ataque usado em segurança. A ferramenta ajuda o usuário a aplicá-lo nas próprias escolhas: recusar o app, negar uma permissão ou pedir a exclusão dos dados.</p></li>
+        <li><p><strong>Compromissos de segurança do próprio app.</strong> A ferramenta verifica se a política menciona medidas de segurança <span class="art">art. 46</span> e comunicação de incidentes <span class="art">art. 48</span>, e alerta quando elas estão ausentes ou vagas.</p></li>
+        <li><p><strong>Privacidade por projeto na própria ferramenta.</strong> O texto analisado nunca sai da máquina do usuário. Não há chamada a API externa, o que evita criar um novo ponto de vazamento.</p></li>
+      </ol>
+    </section>
+
+    <section id="objetivos">
+      <h2><span class="n">4</span>Objetivos</h2>
+      <p><strong>Objetivo geral:</strong> desenvolver um MVP open source que classifique os trechos de uma política de privacidade em português por prática de dados, relacione cada prática à LGPD e apresente ao usuário leigo um resumo com alertas de risco.</p>
+      <h3>Objetivos específicos</h3>
+      <ol>
+        <li>Definir uma taxonomia de práticas de dados em português, partindo das categorias do OPP-115 e ajustada à LGPD.</li>
+        <li>Montar e anotar um corpus de políticas de privacidade de apps brasileiros, que será publicado junto com o projeto.</li>
+        <li>Treinar e comparar três abordagens de classificação de trechos (seção 6.3) com métricas objetivas.</li>
+        <li>Construir regras de mapeamento entre categorias, artigos da LGPD e níveis de alerta.</li>
+        <li>Gerar resumos em linguagem simples com um LLM local.</li>
+        <li>Entregar uma interface Streamlit em que o usuário cola o texto e recebe o relatório.</li>
+      </ol>
+    </section>
+
+    <section id="dados">
+      <h2><span class="n">5</span>Dados</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fonte</th><th>Descrição</th><th>Uso no projeto</th></tr></thead>
+          <tbody>
+            <tr><td>OPP-115<br><small>(Wilson et al., ACL 2016)</small></td><td>115 políticas de sites em inglês com cerca de 23 mil anotações de práticas de dados feitas por especialistas em direito, em 10 categorias. Disponível para uso acadêmico em usableprivacy.org.</td><td>Treino e validação; referência para a taxonomia</td></tr>
+            <tr><td>OPP-115 traduzido</td><td>Tradução automática dos trechos para português com modelo open source (ex.: Helsinki-NLP Opus-MT ou NLLB), com revisão por amostragem.</td><td>Treino dos modelos em português</td></tr>
+            <tr><td>Corpus Termo Claro (novo)</td><td>De 30 a 40 políticas públicas de apps populares no Brasil (bancos digitais, delivery, transporte, redes sociais, varejo, saúde), anotadas por trecho pela equipe.</td><td>Conjunto de teste final, nunca usado em treino. Contribuição publicada do projeto</td></tr>
+            <tr><td>Texto da LGPD</td><td>Lei nº 13.709/2018 (planalto.gov.br).</td><td>Base das regras de mapeamento e das citações</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Protocolo de anotação do corpus novo:</strong> um guia de anotação escrito antes de começar; cada política anotada por dois membros de forma independente; concordância medida pelo kappa de Cohen; divergências resolvidas por um terceiro membro. Isso dá credibilidade às métricas de teste.</p>
+    </section>
+
+    <section id="solucao">
+      <h2><span class="n">6</span>Solução proposta</h2>
+      <h3>6.1 Arquitetura</h3>
+      <div class="pipeline" role="list" aria-label="Pipeline do sistema">
+        <div class="step input" role="listitem"><span class="k">in</span><div><b>Entrada</b><small>Texto colado, URL ou PDF</small></div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="step" role="listitem"><span class="k">1</span><div><b>Extração e limpeza</b><small>HTML e PDF convertidos em texto</small></div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="step" role="listitem"><span class="k">2</span><div><b>Segmentação em trechos</b><small>Parágrafos ou blocos de sentido</small></div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="step" role="listitem"><span class="k">3</span><div><b>Classificador de práticas de dados</b><small>Multirrótulo: um trecho pode ter várias categorias</small></div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="step" role="listitem"><span class="k">4</span><div><b>Motor de regras LGPD</b><small>Categoria + sinais do texto → artigo + alerta</small></div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="step" role="listitem"><span class="k">5</span><div><b>LLM local (Ollama)</b><small>Resumo em linguagem simples, citando os trechos</small></div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="step" role="listitem"><span class="k">6</span><div><b>Interface Streamlit</b><small>Relatório por categoria com alertas verde, amarelo e vermelho</small></div></div>
+      </div>
+
+      <h3>6.2 Taxonomia preliminar e mapeamento LGPD</h3>
+      <div class="table-wrap">
+        <table class="taxo">
+          <thead><tr><th>Categoria</th><th>Origem no OPP-115</th><th>Artigos LGPD</th><th>Exemplo de alerta <span class="dot bad" style="vertical-align:middle"></span></th></tr></thead>
+          <tbody>
+            <tr><td>Coleta e uso pelo app</td><td>First Party Collection/Use</td><td><span class="art">art. 6º I–III</span> <span class="art">art. 7º</span></td><td>Coleta ampla sem finalidade definida</td></tr>
+            <tr><td>Compartilhamento com terceiros</td><td>Third Party Sharing/Collection</td><td><span class="art">art. 7º §5º</span> <span class="art">art. 9º V</span></td><td>Compartilha com "parceiros" não identificados</td></tr>
+            <tr><td>Localização</td><td>subcategoria de coleta</td><td><span class="art">art. 6º III</span> <span class="art">art. 9º</span></td><td>Localização contínua, inclusive em segundo plano</td></tr>
+            <tr><td>Dados sensíveis</td><td>(nova)</td><td><span class="art">art. 5º II</span> <span class="art">art. 11</span></td><td>Saúde, biometria ou religião sem consentimento específico</td></tr>
+            <tr><td>Escolhas e consentimento</td><td>User Choice/Control</td><td><span class="art">art. 8º</span> <span class="art">art. 18 IX</span></td><td>Sem forma de revogar o consentimento</td></tr>
+            <tr><td>Direitos do titular</td><td>User Access, Edit and Deletion</td><td><span class="art">art. 18</span></td><td>Não informa como acessar ou excluir os dados</td></tr>
+            <tr><td>Retenção</td><td>Data Retention</td><td><span class="art">arts. 15 e 16</span></td><td>Guarda "por tempo indeterminado"</td></tr>
+            <tr><td>Segurança e incidentes</td><td>Data Security</td><td><span class="art">art. 46</span> <span class="art">art. 48</span></td><td>Nenhuma medida de segurança mencionada</td></tr>
+            <tr><td>Crianças e adolescentes</td><td>International and Specific Audiences</td><td><span class="art">art. 14</span></td><td>Coleta de dados de menores sem consentimento dos pais</td></tr>
+            <tr><td>Transferência internacional</td><td>International and Specific Audiences</td><td><span class="art">art. 33</span></td><td>Envia dados para outro país sem dizer qual nem a garantia</td></tr>
+            <tr><td>Mudanças na política</td><td>Policy Change</td><td><span class="art">art. 8º §6º</span> <span class="art">art. 9º §2º</span></td><td>Pode mudar os termos sem avisar o usuário</td></tr>
+            <tr><td>Encarregado (DPO)</td><td>(nova)</td><td><span class="art">art. 41</span></td><td>Não identifica o encarregado nem o canal de contato</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A taxonomia será revisada nas semanas 3–4, após a análise exploratória.</p>
+
+      <h3>6.3 Modelos comparados</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Abordagem</th><th>Ferramenta</th><th>Papel</th></tr></thead>
+          <tbody>
+            <tr><td>Linha de base: TF-IDF + Regressão Logística (um-contra-todos)</td><td>Scikit-Learn</td><td>Referência rápida e interpretável</td></tr>
+            <tr><td>Transformer ajustado: BERTimbau (neuralmind/bert-base-portuguese-cased) ou XLM-RoBERTa</td><td>Hugging Face Transformers + PyTorch</td><td>Melhor desempenho esperado</td></tr>
+            <tr><td>LLM zero-shot / few-shot: Qwen3 4B ou Gemma 3 4B, quantizados</td><td>Ollama</td><td>Classificação sem treino; também gera o resumo final</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Restrição de hardware:</strong> a equipe dispõe de máquinas com 8 GB de RAM e sem GPU. Os LLMs de 4B quantizados (cerca de 3 GB) rodam em CPU nessa configuração. O ajuste fino do Transformer será feito no plano gratuito do Google Colab ou, se necessário, com um modelo menor (ex.: DistilBERT multilíngue) em CPU. A inferência do modelo final roda localmente.</p>
+
+      <h3>6.4 Interface</h3>
+      <p>Aplicação Streamlit local. O usuário cola o texto (ou informa URL/PDF) e recebe:</p>
+      <ul>
+        <li>um painel com as categorias e o alerta de cada uma;</li>
+        <li>o resumo em linguagem simples;</li>
+        <li>para cada alerta, o trecho original da política e o artigo da LGPD relacionado, para que o usuário possa conferir.</li>
+      </ul>
+      <p>Uma CLI simples será oferecida para processar várias políticas em lote, usada também nos testes.</p>
+    </section>
+
+    <section id="metricas">
+      <h2><span class="n">7</span>Métricas de avaliação</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Métrica</th><th>O que mede</th></tr></thead>
+          <tbody>
+            <tr><td>Precisão, revocação e F1 por categoria; F1 macro e micro</td><td>Qualidade da classificação dos trechos</td></tr>
+            <tr><td>Taxa de falsos negativos nos alertas <span class="dot bad" style="vertical-align:middle"></span></td><td>Risco mais grave: deixar de avisar algo importante</td></tr>
+            <tr><td>Taxa de falsos positivos nos alertas</td><td>Alarme falso, que faz o usuário ignorar a ferramenta</td></tr>
+            <tr><td>Kappa de Cohen entre anotadores</td><td>Confiabilidade do corpus de teste</td></tr>
+            <tr><td>Tempo de inferência por política; uso de CPU e RAM</td><td>Viabilidade em máquina comum</td></tr>
+            <tr><td>Avaliação dos resumos por amostra (fidelidade ao texto e clareza, feita pela equipe)</td><td>Qualidade da camada de apresentação</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Todas as métricas serão medidas no corpus brasileiro, que não é usado em treino, e registradas em um relatório reproduzível por script no repositório.</p>
+    </section>
+
+    <section id="equipe">
+      <h2><span class="n">8</span>Divisão de trabalho</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Frente</th><th>Responsável</th><th>Atividades</th></tr></thead>
+          <tbody>
+            <tr><td>Dados e anotação</td><td>[Nome]</td><td>Coleta das políticas, guia de anotação, tradução do OPP-115, EDA</td></tr>
+            <tr><td>Modelos de ML</td><td>[Nome]</td><td>Linha de base e Transformer, ajuste e métricas</td></tr>
+            <tr><td>LLM e regras LGPD</td><td>[Nome]</td><td>Prompts, Ollama, motor de regras, avaliação dos resumos</td></tr>
+            <tr><td>Interface e integração</td><td>[Nome]</td><td>Streamlit, CLI, testes, README</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Todos participam da anotação do corpus, já que cada política precisa de dois anotadores.</p>
+    </section>
+
+    <section id="cronograma">
+      <h2><span class="n">9</span>Cronograma de 16 semanas</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Semanas</th><th>Etapa</th><th>Entregas do projeto</th></tr></thead>
+          <tbody>
+            <tr><td class="wk">01–02</td><td>Definição e setup</td><td>Aprovação do tema; repositório no GitHub; ambiente Python 3.10+; Ollama instalado e testado</td></tr>
+            <tr><td class="wk">03–04</td><td>Coleta e mapeamento de dados</td><td>Download do OPP-115; lista e coleta das políticas brasileiras; taxonomia final; guia de anotação; EDA</td></tr>
+            <tr><td class="wk">05–07</td><td>Core do sistema</td><td>Extração de texto (colado, URL, PDF); segmentação; tradução do OPP-115; anotação do corpus brasileiro; motor de regras LGPD</td></tr>
+            <tr><td class="wk">08–10</td><td>Treino e otimização</td><td>Linha de base TF-IDF; ajuste fino do Transformer; prompts zero/few-shot; ajuste de limiares para reduzir falsos negativos nos alertas vermelhos</td></tr>
+            <tr><td class="wk">11–12</td><td>Integração e interface</td><td>App Streamlit; geração de resumo pelo LLM; CLI de lote</td></tr>
+            <tr><td class="wk">13–14</td><td>Testes e métricas</td><td>Avaliação no corpus brasileiro; comparação dos três modelos; tempo e consumo de recursos; relatório de métricas</td></tr>
+            <tr><td class="wk">15–16</td><td>Documentação e apresentação</td><td>README completo; relatório final; publicação do corpus; demonstração ao vivo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="entregaveis">
+      <h2><span class="n">10</span>Entregáveis</h2>
+      <ol>
+        <li>Repositório público no GitHub com todo o código-fonte, sob licença MIT.</li>
+        <li>README com instalação, execução e reprodução dos experimentos.</li>
+        <li>Corpus de políticas brasileiras anotadas e guia de anotação (publicados com licença aberta, respeitando os termos de uso de cada fonte).</li>
+        <li>Relatório de métricas comparando as três abordagens.</li>
+        <li>MVP demonstrável em Streamlit.</li>
+      </ol>
+    </section>
+
+    <section id="stack">
+      <h2><span class="n">11</span>Stack tecnológica</h2>
+      <p>100% open source, custo zero.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td>Linguagem</td><td>Python 3.10+</td></tr>
+            <tr><td>ML clássico</td><td>Scikit-Learn</td></tr>
+            <tr><td>Deep learning e NLP</td><td>PyTorch, Hugging Face Transformers, Datasets</td></tr>
+            <tr><td>LLM local</td><td>Ollama com Qwen3 4B ou Gemma 3 4B</td></tr>
+            <tr><td>Extração de texto</td><td>BeautifulSoup/trafilatura (HTML), pypdf (PDF)</td></tr>
+            <tr><td>Interface</td><td>Streamlit</td></tr>
+            <tr><td>Versionamento</td><td>Git e GitHub</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="riscos">
+      <h2><span class="n">12</span>Riscos e mitigação</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Risco</th><th>Mitigação</th></tr></thead>
+          <tbody>
+            <tr><td>Dados rotulados existem só em inglês</td><td>Tradução automática open source do OPP-115 e modelos multilíngues; o corpus brasileiro garante teste realista</td></tr>
+            <tr><td>Anotação manual é trabalhosa</td><td>Guia de anotação claro; trabalho distribuído entre 4+ membros; corpus limitado a 30–40 políticas</td></tr>
+            <tr><td>Hardware sem GPU</td><td>LLMs quantizados de 4B; ajuste fino no Colab gratuito ou modelo menor</td></tr>
+            <tr><td>Resumos são subjetivos de avaliar</td><td>Métrica principal é o F1 da classificação, que é objetivo; o resumo é avaliado à parte, por amostra</td></tr>
+            <tr><td>LLM inventar informação no resumo</td><td>O resumo é gerado só a partir dos trechos classificados e mostra o trecho original ao lado</td></tr>
+            <tr><td>Ferramenta confundida com parecer jurídico</td><td>Aviso claro na interface: a ferramenta orienta, não substitui análise jurídica</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="limitacoes">
+      <h2><span class="n">13</span>Limitações e trabalhos futuros</h2>
+      <ul>
+        <li>O MVP analisa apenas o texto da política, não o comportamento real do app. Um trabalho futuro seria comparar a política com as permissões pedidas pelo app ou com a seção "Segurança dos dados" da Google Play.</li>
+        <li>Termos muito longos podem exigir resumo em etapas por causa do limite de contexto dos LLMs pequenos.</li>
+      </ul>
+    </section>
+
+    <section id="referencias">
+      <h2>Referências</h2>
+      <ul class="refs">
+        <li>BRASIL. Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD).</li>
+        <li>McDONALD, A. M.; CRANOR, L. F. The Cost of Reading Privacy Policies. <em>I/S: A Journal of Law and Policy for the Information Society</em>, v. 4, n. 3, 2008.</li>
+        <li>OBAR, J. A.; OELDORF-HIRSCH, A. The Biggest Lie on the Internet: Ignoring the Privacy Policies and Terms of Service Policies of Social Networking Services. TPRC 44, 2016. Publicado em <em>Information, Communication &amp; Society</em>, 2020.</li>
+        <li>WILSON, S. et al. The Creation and Analysis of a Website Privacy Policy Corpus. <em>Proceedings of ACL</em>, 2016.</li>
+        <li>SOUZA, F.; NOGUEIRA, R.; LOTUFO, R. BERTimbau: Pretrained BERT Models for Brazilian Portuguese. <em>BRACIS</em>, 2020.</li>
+        <li>CUI, H. et al. PoliGraph: Automated Privacy Policy Analysis using Knowledge Graphs. arXiv:2210.06746, 2022.</li>
+        <li>PoliAnalyzer. arXiv:2507.14214, 2025.</li>
+        <li>AutoTOS. github.com/MathTauAthogen/autoTOS.</li>
+      </ul>
+    </section>
+
+    <footer>Proposta preliminar para aprovação do professor. Sujeita a revisão da equipe.</footer>
+  </main>
+</div>
+
+</body></html>
