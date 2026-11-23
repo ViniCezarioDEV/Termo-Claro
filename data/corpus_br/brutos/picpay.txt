@@ -1,0 +1,20 @@
+Introdução
+O PicPay existe para quebrar barreiras e eliminar burocracias. Com isso, nós queremos que você passe menos tempo fazendo pagamentos e mais tempo aproveitando as coisas boas da vida.
+Uma das nossas metas é fortalecer a sua confiança em nosso trabalho. Por isso, queremos te contar sobre como usamos e protegemos seus dados pessoais quando você utiliza os nossos aplicativos ou site do PicPay.
+Ao utilizar nossos serviços, você se declara ciente deste aviso, beleza? Vem com a gente!
+button-link, primary
+true
+true
+pencil
+Dados pessoais
+São todas as informações que permitem a gente saber quem você é. Como o seu nome, CPF, selfie, geolocalização, dados do seu cartão de crédito e outros dados.
+eletronics
+Encarregado
+É a pessoa do nosso time que cuida da sua privacidade aqui no PicPay. Ele também vai poder tirar qualquer dúvida que você tenha sobre a forma como tratamos os seus dados.
+user
+Tratamento de dados pessoais
+É o que fazemos com os seus dados pessoais, por exemplo, como vamos coletar, classificar, utilizar, acessar, processar, armazenar, eliminar, modificar, compartilhar, transferir, etc.
+Atualização
+Podemos atualizar a nossa Política de Privacidade com certa frequência. Mas não se preocupe! Se alterarmos a finalidade de algum tratamento que precise do seu consentimento, você pode retirar essa permissão, através da nossa Central de Ajuda. Nós convidamos você a sempre rever este documento para se manter informado sobre nossas práticas de tratamento de dados pessoais.
+Última atualização realizada: Agosto de 2026.
+button-link, primary
